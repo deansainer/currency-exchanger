@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nabla&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Quintessential&display=swap');
+
+body{
+  background: rgb(2,0,36);
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(37,126,110,1) 53%, rgba(0,212,255,1) 100%);
+  min-height: 100vh;
+  text-align: center;
+}
+
+h1{
+  text-align: center;
+  margin-top: 140px;
+  font-family: "Nabla", cursive;
+}
+
+.selectors{
+  display: flex;
+  justify-content: space-between;
+  width: 500px;
+  margin: 0 auto;
+}
