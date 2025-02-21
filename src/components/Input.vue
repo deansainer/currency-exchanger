@@ -11,6 +11,11 @@ export default{
             required: true
         },
         
+        toFavorite: {
+            type: Function,
+            required: true
+        },
+        
     }
 }
 </script>
@@ -18,6 +23,7 @@ export default{
 <template>
   <input min="0" type="number" @input="setAmount($event.target.value)"><br>
   <button @click="convert()">Convert</button>
+  <button className="fav-btn" @click="toFavorite()">To favorite</button>
 </template>
 
 <style scoped>
@@ -41,5 +47,9 @@ button{
     border-radius: 10px;
     margin-top: 20px;
     cursor: pointer;
+}
+
+button.fav-btn{
+    margin-left: 13px;
 }
 </style>

@@ -1,4 +1,5 @@
 <script>
+import Favorites from './components/Favorites.vue';
 import Input from './components/input.vue';
 import Selector from './components/Selector.vue'
 import CryptoConvert from 'crypto-convert';
@@ -6,7 +7,7 @@ import CryptoConvert from 'crypto-convert';
 const convert = new CryptoConvert();
 
 export default{
-  components: {Input, Selector},
+  components: {Input, Selector, Favorites},
 
   data(){
     return{
@@ -14,31 +15,43 @@ export default{
       cryptoFirst: '',
       cryptoSecond: '',
       error: '',
-      result: 0
+      result: 0,
+      favorites: []
     }
   },
   methods: {
     setAmount(val){
       this.amount = val
-      console.log(this.amount)
+      this.result = 0
     },
 
     setCryptoFirst(val){
       this.cryptoFirst = val
+      this.result = 0
     },
 
     setCryptoSecond(val){
       this.cryptoSecond = val
+      this.result = 0
     },
+
+    toFavorite(){
+      this.favorites.push({
+        from: this.cryptoFirst,
+        to: this.cryptoSecond
+      })
+      console.log(this.favorites)
+    },
+
     async convert(){
       if(this.amount < 1){
-        this.error = 'Enter a number more that 0'
+        alert('Enter a number more that 0')
         return;
       } else if (this.cryptoFirst === this.cryptoSecond){
-        this.error = 'Choose different currencies '
+        alert('Choose different currencies')
         return;
       } else if (this.cryptoFirst == '' || this.cryptoSecond == ''){
-        this.error = 'Choose 2 currencies '
+        alert('Choose 2 currencies')
         return;
       }
       this.error = ''
@@ -65,15 +78,14 @@ export default{
 </script>
 
 <template>
-  <p v-if="error != ''">{{ error }}</p>
-  <p v-if="result != 0">{{ result }}</p>
   <h1>Crypto exchanger</h1>
-  <Input :setAmount="setAmount" :convert="convert"/> 
+  <Input :setAmount="setAmount" :convert="convert" :toFavorite="toFavorite"/> 
   <div className="selectors">
     <Selector :setCrypto="setCryptoFirst"/>
     <Selector :setCrypto="setCryptoSecond"/>
   </div>
-{{ amount }}
+  <h1 v-if="result">{{ amount }} {{ cryptoFirst }} = {{ result }} {{ cryptoSecond }}</h1>
+  <Favorites :favorites="favorites" v-if="favorites.length > 0"/>
 </template>
 
 <style>
